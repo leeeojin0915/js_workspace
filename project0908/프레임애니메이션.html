@@ -8,13 +8,13 @@
     var n=1;
     function next(){
         n=n+1;
+        //문서내의 pic이라 불리는 요소의 src속성을 교체
         document.getElementById("pic").src="../project0908/images/hero/image"+n+".png";
     }
 </script>
 </head>
 <body>
     <img src="../project0908/images/hero/image1.png" id="pic">
-
     <button onClick="next()">다음프레임보기</button>
 </body>
 </html>
