@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script>
+//변수는 그 값이 변할 수 있다.
+/*
+var x=7;
+var y=3;
+
+x=x+3;
+document.write(x);
+*/
+//변수의 값을 1씩 증가시켜보기
+var n=0;// 메모리에 0데이터 올려라, 변수명은 n
+
+//주의: html은 문서에 불과하기 때문에 대소문자를 가리지 않으나
+//모든 프로그래밍 언어에서는 대소문자를 정확히 구분
+function setCount(){
+    n=n+1;
+     alert("D:/koreaIT/Workspace/js_workspace/project0908/image"+n+".jpg");
+}
+</script>  
+</head>
+<body>
+    <button onClick="setCount()">카운터증가</button>
+</body>
+</html>

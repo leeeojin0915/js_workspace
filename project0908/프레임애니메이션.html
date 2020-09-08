@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var n=1;
+    function next(){
+        n=n+1;
+        document.getElementById("pic").src="../project0908/images/hero/image"+n+".png";
+    }
+</script>
+</head>
+<body>
+    <img src="../project0908/images/hero/image1.png" id="pic">
+
+    <button onClick="next()">다음프레임보기</button>
+</body>
+</html>
