@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 800px;
+        height: 600px;
+        margin:auto;
+    }
+    #control{
+        width: 200px;
+        height: 100%;
+        background: khaki;
+        float: left;
+    }
+    #result{
+        width: 600px;
+        height: 100%;
+        background: lavender;
+        float: left;
+    }
+    /* 이미지에 대한 스타일 */
+    #pic{
+        width:100px;
+        height: 100px;
+        transform:scaleX(1);
+        transform:scaleY(1);
+        opacity: 1;
+        transform:rotate(0deg);
+        border:1px dotted palevioletred;
+    }
+</style>
+<script>
+    // 여기 영역은 html이 아닌 프로그래밍 영역
+    // 수행되는 시점은 브라우저 실행할 때
+    var w=0;
+    var h=0;
+    var x=1;
+    var y=1;
+    var o=1;
+    var r=0;
+    var b=1;
+    function setWidth(){
+        w=w+10; //10 증가
+        document.getElementById("pic").style.width=w+"px";
+    }
+    function setHeight(){
+        h=h+10; //기존 h에 10 누적
+        document.getElementById("pic").style.height=h+"px";
+    }
+    function setScaleX(){
+        // 문서내의 pic이라는 요소의  css의  scaleX의 값을 늘린다.
+        // 참고로 스케일은 너비의 배수를 의미
+        x=x+0.5;
+        document.getElementById("pic").style.transform="scaleX("+x+")";
+    }
+    function setScaleY(){
+        y=y+0.5;
+        document.getElementById("pic").style.transform="scaleY("+y+")";
+    }
+    function setOpacity(){
+        //문서내의 pic이라는 요소의 css중 opcity 변경
+        o=o-0.1;
+        document.getElementById("pic").style.opacity=o;
+    }
+    function setRoate(){
+        //문서내의 pic이라는 요소의 css중 opcity 변경
+        r=r+10;
+        document.getElementById("pic").style.transform="rotate("+r+"deg)";
+    }
+    function setBorder(){
+        b=b+1;
+        document.getElementById("pic").style.border=b+"px dotted palevioletred";
+    }
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+        <div id="control">
+            <!-- ul이란 un ordered list 순서없는 목록  -->
+            <ul>
+                <li>
+                    <button onClick="setWidth()">width</button>
+                    <button onClick="setHeight()">height</button>
+                </li>
+                <li>
+                    <button onClick="setScaleX()">scalex</button>
+                    <button onClick="setScaleY()">scaley</button>
+                </li>
+                <li>
+                    <button onClick="setOpacity()">opcity</button>
+                </li>
+                <li>
+                    <button onClick="setRoate()">rotate</button>
+                </li>
+                <!-- <li>
+                    <button>position</button>
+                </li> -->
+                <li>
+                    <button onClick="setBorder()">border</button>
+                </li>
+            </ul>
+        </div>
+        <div id="result">
+            <img src="../project0908/image/1.jpg" id="pic">
+        </div>
+    </div>
+</body>
+</html>
