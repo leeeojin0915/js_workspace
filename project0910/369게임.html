@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    div{
+        width: 400px;
+        height: 300px;
+        background-color: skyblue;
+        font-size:170px;
+        text-align:center;/*div안쪽 컨텐츠의 정렬*/
+    }
+</style>
+<script>
+    //버튼을 누를때마다 1씩 증가시키되 3의 배수일 때 마다 문서내의 div의 컨텐츠에 숫자 대신 원하는 단어를 출력하자
+    var n=0;//숫자를 누적시킬 변수
+    var msg;
+    function setCount(){
+        n++;//1증가
+        msg=(n%3==0)? "메롱":n; //3으로 나누어 떨어질 경우에 단어 아니면 숫자 =삼항연산자
+        //div 사이에 있는 텍스트를 적용시키고 싶을때 -innerText
+        //아래의 변수값은 숫자이거나,단어 둘 중에 하나가 되야함 = 결정되어 있지않다.(변수처리)
+        document.getElementById("box").innerText=msg;
+    }
+</script>
+</head>
+<body>
+    <button onclick="setCount()">카운터증가</button>
+    <div id="box">0</div>
+</body>
+</html>

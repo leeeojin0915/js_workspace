@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 800px;
+        height: 600px;
+        background:red;
+        margin: auto;
+        position: relative;
+    }
+    /* wrapper 자식이 code, content를 부모를 기준으로 배치할 것임 */
+    #code{
+        width: 100px;
+        height: 100%;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        background:skyblue;
+    }
+    #content{
+        width: 700px;
+        height: 100%;
+        position:absolute;
+        left: 100px;
+        top: 0px;
+        background:green;
+    }
+    #mask{
+        width: 700px;
+        height: 600px;
+        background:black;
+        opacity: 0.8;
+    }
+    img, #mask{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+</style>
+<script>
+    var status;//on or off를 결정할 변수
+    var flagSwitch=true; //스위치의 상태를 결정짓는 변수 true/false
+    var op;//1 or 0으로 투명도를 결정 할 변수
+    function turn(){
+        status=(flagSwitch)? "on":"off" 
+        //문서내의 pic요소의 src속성을 변경
+        document.getElementById("pic").src="../project0910/light/switch_"+status+".png";
+        //문서내의 mask라는 id 요소의 투명도 제어
+        op=(flagSwitch)? 0:0.8;
+        document.getElementById("mask").style.opacity=op;
+        flagSwitch=!flagSwitch;//논리값뒤집기
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="code">
+            <img id="pic" src="../project0910/light/switch_off.png" onclick="turn()">
+        </div>
+        <div id="content">
+            <img src="../project0910/light/room.jpg" width="700px" height="600px">
+            <div id="mask"></div>
+        </div>
+    </div>
+</body>
+</html>
