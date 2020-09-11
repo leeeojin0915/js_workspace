@@ -16,12 +16,18 @@
 </style>
 <script>
     var le=0;
+    var flag=true;
+    var status;
+    var uStatus;
     function move(){
         //400에 도달하면 다시 돌아오기 0으로 다시오면 다시 가기
         //문서내의 box라는 요소의 스타일 포지션의 left값 변경
+       // status=(flag)? (le+=5):(le-=5);
+        status=(0)?(le+=5):
         le+=5;
         document.getElementById("box").style.left=le+"px";
 
+      
         //정보를 출력하면서 개발하기 위해 텍스트박스에 출력
         document.getElementById("info").value=le;
     }
@@ -30,7 +36,6 @@
 <body>
     <button onclick="move()">움직이기</button>
     <input type="text" id="info">
-
     <div id="box"></div>
 </body>
 </html>
