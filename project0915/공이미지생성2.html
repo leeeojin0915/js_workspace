@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var n=0; //전역변수, 숫자가 누적 될 수 있도록 하기 위함..
+                //왜 누적해야 하나?1,2,3,4,5 누적해나가다 5를 나눈 나머지를 구해야함
+    function ballClick(){
+        n++;
+        console.log("count is",n);
+        
+        var ball= document.createElement("img");
+        //변수 m의 값을 텍스트박스로부터 구하자
+        var m=document.getElementById("txt").value;
+        m=parseInt(m); //주의) parseInt() 대상이 될 수 있는건 "쌍따옴표"를 벗겼을 때 정수가 될 수 있는 문자만 가능하다.
+        var path=document.getElementById("path").value
+        /*
+        if(n%m!=0){
+        ball.src="../images/ball/ball1.png";
+        ball.src="../images/ball/ball1.png";
+        }else{
+        ball.src="../images/ball/ball2.png";
+        }
+        */
+        //흑백논리를 처리할 때는, 삼항연산자로도 가능
+        ball.src=(n%m==0)? path:"../images/ball/ball1.png";
+
+        ball.style.width=100+"px";
+        document.body.appendChild(ball);
+
+
+    }
+    function auto(){
+        setInterval("ballClick()",500);
+    }
+</script>
+</head>
+<body>
+    <input id="txt" type="text" placeholder="몇 번째 마다 공을 생성할 지 숫자입력">
+    <input id="path" type="text" placeholder="사용될 이미지 경로">
+    <button onclick="ballClick()">공생성</button>
+    <button onclick="auto()">자동공생성</button>
+    <br>
+</body>
+</html>

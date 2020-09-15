@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var m=prompt("몇번째마다 다른 공을 생성할래요?");
+    //5를 입력해도, 프롬포트의 특징상 "5" 문자로 이해한다
+    //따라서 숫자로 바꾸려면 parseInt()해주자
+    m=parseInt(m); //"5" 쌍따옴표 제거 --->5(정수)
+
+    var n=0; //전역변수, 숫자가 누적 될 수 있도록 하기 위함..
+                //왜 누적해야 하나?1,2,3,4,5 누적해나가다 5를 나눈 나머지를 구해야함
+    function ballClick(){
+        n++;
+        console.log("count is",n);
+        
+        var ball= document.createElement("img");
+        
+        /*
+        if(n%m!=0){
+        ball.src="../images/ball/ball1.png";
+        ball.src="../images/ball/ball1.png";
+        }else{
+        ball.src="../images/ball/ball2.png";
+        }
+        */
+        //흑백논리를 처리할 때는, 삼항연산자로도 가능
+        ball.src=(n%m==0)? "../images/ball/ball2.png":"../images/ball/ball1.png";
+
+        ball.style.width=100+"px";
+        document.body.appendChild(ball);
+
+
+    }
+</script>
+</head>
+<body>
+    <button onclick="ballClick()">클릭</button>
+</body>
+</html>

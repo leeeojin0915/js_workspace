@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 700px;
+        height: 700px;
+        margin: auto;
+        background:aquamarine;
+        position: relative;
+    }
+</style>
+<script>
+    var box; //문서내의 div박스를 담아 놓을 전역변수
+    var x=50; //박스의 x좌표를 결정하는 전역변수
+    var y=80; //박스의 y좌표를 결정하는 전역변수
+    var flag=true;
+    var step;
+    var stepT;
+    function init(){
+        box=document.getElementById("box");//전역변수에 보관
+        //박스의 스타일을 css에서가 아니라,js로 처리
+        // 효과적으로는 달라질게 없으나 css를 프로그램을 제어할 수 있다
+        box.style.width=50+"px";
+        box.style.height=50+"px";
+        box.style.background="pink";
+        box.style.position="absolute";
+        box.style.left=x+"px";
+        box.style.top=y+"px";
+    }
+    //클릭 할 때 마다 수동으로 box의 left,top을 변경시키자
+    function move(){
+        x+=step;
+        y+=stepT;
+        flag=((x<=50 || x>=700)&&(y<=80 || y>=650))? !flag:flag;
+        step=(flag)?5:-5;
+        stepT=(flag)?-8:8;
+        box.style.left=step+"px";
+        box.style.top=stepT+"px";
+        
+
+    }
+</script>
+</head>
+<body onload="init()">
+    <div id="wrapper">
+        <button onclick="move()">수동</button>
+        <button>자동</button>
+        <div id="box"></div>
+    </div>
+</body>
+</html>

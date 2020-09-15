@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 500px;
+        height: 500px;
+        margin: auto;
+        background:aquamarine;
+        position: relative;
+    }
+</style>
+<script>
+    var box; //문서내의 div박스를 담아 놓을 전역변수
+    var x=50; //박스의 x좌표를 결정하는 전역변수
+    var y=80; //박스의 y좌표를 결정하는 전역변수
+    var stepX=5;
+    var stepY=8;
+    var flag=true;
+    function init(){
+        box=document.getElementById("box");//전역변수에 보관
+        //박스의 스타일을 css에서가 아니라,js로 처리
+        // 효과적으로는 달라질게 없으나 css를 프로그램을 제어할 수 있다
+        box.style.width=50+"px";
+        box.style.height=50+"px";
+        box.style.background="pink";
+        box.style.position="absolute";
+        box.style.left=x+"px";
+        box.style.top=y+"px";
+    }
+
+    //클릭 할 때 마다 수동으로 box의 left,top을 변경시키자
+    function move(){
+        x+=stepX;
+        y+=stepY;
+        //y축에 발이 닿았는지 여부 판단하다(판단기준 500 수평선-50 = 450)
+        // if(y>=450){
+        //     box.style.background="skyblue";
+        //     //이 순간에는 y축의 증가분을 반대로 돌려놓아야 한다. 즉 부호를 바꿔야함
+        //     y-=8;
+        //     //x축은 그냥 놔둠
+        // }
+        //box에 숫자 출력(디버깅목적)
+        box.innerText="x="+x+",y="+y;
+        box.style.left=x+"px";
+        box.style.top=y+"px";
+        flag=((y>=450)? !flag:flag);
+        stepY=(flag)? 8:-8;
+       
+    }
+</script>
+</head>
+<body onload="init()">
+    <div id="wrapper">
+        <button onclick="move()">수동</button>
+        <button>자동</button>
+        <div id="box"></div>
+    </div>
+</body>
+</html>
