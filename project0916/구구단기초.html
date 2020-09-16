@@ -14,11 +14,11 @@ prompt이용
 
 var n=parseInt(prompt("원하는 단을 입력하시오"));
 
-for(var k=n;k>=1;k--){
+for(var k=n;k>=2;k--){
     document.write("------------------<br>");
     document.write(k+"단 출력 <br>");
     document.write("------------------<br>");
-    for(var j=k;j>k-1;j--){
+    for(var j=k;j>=k;j--){
         for(var i=1;i<=9;i++){
             document.write(j+"*"+i+"="+(j*i)+"<br>");
         }
