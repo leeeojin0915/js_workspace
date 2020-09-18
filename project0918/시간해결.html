@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{
+        position: relative;
+    }
+    #box{
+        width: 50px;
+        height: 50px;
+        background: lightcoral;
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    var box;
+    var xx;
+    var yy;
+    var targetX;
+    var targetY;
+    var xPo;
+    var yPo;
+    let a=0.1;
+    var ranX=100;
+    var ranY=100;
+    var count=0;
+    function init(){
+        box=document.getElementById("box");
+        box.style.position="absolute";
+        box.style.left=100+"px";
+        box.style.top=100+"px";
+
+        xx=document.getElementById("xx");
+        xPo=parseInt(xx.value);
+        yy=document.getElementById("yy");
+        yPo=parseInt(yy.value);
+
+        auto();
+    }
+    function move(){
+        box.style.left=parseInt(box.style.left)+a*(ranX-parseInt(box.style.left))+"px";
+        box.style.top=parseInt(box.style.top)+a*(ranY-parseInt(box.style.top))+"px";
+        
+        ranX=getRandom(xPo);
+        ranY=getRandom(yPo);
+        
+        console.log(box.style.left);
+        
+    }
+    function auto(){
+        setInterval("move()",50);
+    }
+</script>
+</head>
+<body onload="init()">
+    <div id="box"></div>
+    <input id="xx" type="text">x좌표
+    <input id="yy" type="text">y좌표
+    <button onclick="move()">실행</button>
+</body>
+</html>
