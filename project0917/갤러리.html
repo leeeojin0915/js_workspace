@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width:700px;
+        height: 600px;
+        margin: auto;
+        position: relative;
+        border: 5px solid salmon;
+    }
+    #manual{
+        width: 150px;
+        height: 100%;
+    }
+    #window{
+        width: 550px;
+        height: 100%;
+        position: absolute;
+        left: 150px;
+        top: 0px;
+    }
+    #p{
+        width: 500px;
+        height: 500px;
+        margin-top: 50px;
+        margin-left: 20px;
+
+    }
+    #manual img{
+        width: 140px;
+        height: 75px;
+        margin-left: 4px;
+        margin-top: 6px;
+    }
+</style>
+<script>
+    function picOver(n){
+        var bg=document.getElementById("p");
+        bg.src="../images/bts/"+n+".jpg";
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="manual">
+            <img  onclick="picOver(1)" src="../images/bts/1.jpg">
+            <img  onclick="picOver(2)" src="../images/bts/2.jpg">
+            <img  onclick="picOver(3)" src="../images/bts/3.jpg">
+            <img  onclick="picOver(4)" src="../images/bts/4.jpg">
+            <img  onclick="picOver(5)" src="../images/bts/5.jpg">
+            <img  onclick="picOver(6)" src="../images/bts/6.jpg">
+            <img  onclick="picOver(7)" src="../images/bts/7.jpg">
+        </div>
+        <div id="window">
+            <img  onclick="picOver(1)" src="../images/bts/1.jpg" id="p">
+        </div>
+    </div>
+</body>
+</html>

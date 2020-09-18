@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 700px;
+        height: 500px;
+        background: black;
+        margin: auto;
+        overflow: hidden;
+    }
+    /* .wrapper라는 클래스가 적용된 요소의 하위요 중 div는.. */
+    .wrapper div{
+        width: 100px;
+        height: 100px;
+        float: left;
+    }
+    #content{
+        width: 100%;
+        height: 400px;
+        background: pink;
+    }
+</style>
+<script>
+    // 문서내의 content라는 div의 배경색을 선택한 색상으로 변경하자
+    function setColor(n){
+        var content=document.getElementById("content");
+        
+        // if(n==1){
+        //     content.style.background="red";
+        // }else if(n==2){
+        //     content.style.background="orange";
+        // }else if(n==3){
+        //     content.style.background="yellow";
+        // }else if(n==4){
+        //     content.style.background="green";
+        // }else if(n==5){
+        //     content.style.background="blue";
+        // }else if(n==6){
+        //     content.style.background="navy";
+        // }else if(n==7){
+        //     content.style.background="purple";
+        // }
+
+        switch(n){
+            case 1: content.style.background="red";break;
+            case 2: content.style.background="orange";break;
+            case 3: content.style.background="yellow";break;
+            case 4: content.style.background="green";break;
+            case 5: content.style.background="blue";break;
+            case 6: content.style.background="navy";break;
+            case 7: content.style.background="purple";break;
+        }
+    }
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 썸네일 7개 생성 -->
+        <!-- span은 아무런 효과가 없는 태그이다..따라서 단순히 마크업을 하기 위해서라면 span 이용할 수 있다..
+        block or? inline(width,height XX)?
+        -->
+        <div onmouseover="setColor(1)" style="background:red">red</div>
+        <div onmouseover="setColor(2)" style="background:orange">orange</div>
+        <div onmouseover="setColor(3)" style="background:yellow">yellow</div>
+        <div onmouseover="setColor(4)" style="background:green">green</div>
+        <div onmouseover="setColor(5)" style="background:blue">blue</div>
+        <div onmouseover="setColor(6)" style="background:navy">navy</div>
+        <div onmouseover="setColor(7)" style="background:purple">purple</div>
+        <div id="content">큰 색상 나오게</div>
+    </div>
+</body>
+</html>
