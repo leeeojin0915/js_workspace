@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 600px;
+        height: 500px;
+        background:black;
+        margin: auto;
+    }
+    #box1,#box2,#box3{
+        width: 100%;
+        height: 450px;
+    }
+    #box1{
+        background: yellowgreen;
+    }
+    #box2{
+        background: gold;
+        display: none;
+    }
+    #box3{
+        background: dodgerblue;
+        display: none;
+    }
+    .tab a{
+        text-decoration: none;
+        display: inline-block;
+        width: 200px;
+        height: 50px;
+        text-align: center;
+        font-size: 25px;
+    }
+</style>
+<script>
+    var box1;
+    var box2;
+    var box3;
+    var x;
+    function init(){
+        box1=document.getElementById("box1");
+        box2=document.getElementById("box2");
+        box3=document.getElementById("box3");
+    }
+    // 지금 선택한 탭에 해당하는 div만 나오게 하고 나머지는 안나오게
+    // 매개변수 ,if,for
+    /*function showHide(x){
+        box1.style.display="none";
+        box2.style.display="none";
+        box3.style.display="none";
+
+            if(x==1){
+                box1.style.display="block";
+            }else if(x==2){
+                box2.style.display="block";
+            }else if(x==3){
+                box3.style.display="block";
+            }
+        }*/
+
+    function showHide(n){
+        for(var i=1;i<=3;i++){
+            var box=document.getElementById("box"+i);
+            if(n==i){
+                box.style.display="block";
+            }else{
+                box.style.display="none";
+            }
+        }
+    }
+
+    window.addEventListener("load",function(){
+        init();
+    });
+
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="tab">
+            <a href="javascript:showHide(1)" style="background: yellowgreen;">공지사항</a><a href="javascript:showHide(2)" style="background: gold;">Qna</a><a href="javascript:showHide(3)" style="background: dodgerblue;">자유게시판</a>
+        </div>
+        <div class="content">
+            <div id="box1"></div>
+            <div id="box2"></div>
+            <div id="box3"></div>
+        </div>
+    </div>
+</body>
+</html>

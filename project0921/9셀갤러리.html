@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 600px;
+        height: 600px;
+        margin: auto;
+        background: lightsteelblue;
+    }
+    #mask{
+        width: 200px;
+        height: 200px;
+        background: lightyellow;
+        overflow: hidden;
+        position: relative;
+        left: 200px;
+        top: 200px;
+    }
+</style>
+<script>
+    var box;
+    var x=0;//        x
+    var y=0;//box의 y
+    var targetX=0; //목표지점
+    var targetY=0;
+    let a=0.1;
+    window.addEventListener("load",function(){
+        init();
+        setInterval("move()",10);
+    });
+    // 디버깅을 위한 좌표출력(필수X)
+    function printPos(){
+        box.innerText="x좌표"+cell.style.left+"\n";
+        box.innerText+="y좌표"+cell.style.top;
+        box.style.color="white";
+    }
+    function init(){
+        box=document.getElementById("box");
+        box.style.width=600+"px";
+        box.style.height=600+"px";
+        box.style.background="lightpink";
+        box.style.position="absolute"
+        box.style.left=x+"px";
+        box.style.top=y+"px";
+
+        var n=0;
+        for(var i=1;i<=3;i++){//층결정,top
+            for(var j=1;j<=3;j++){//호수결정,left값
+                n++;
+                var img=document.createElement("img");
+                img.src="../images/bts/"+n+".jpg";
+                img.style.width=200+"px";
+                img.style.height=200+"px";
+                img.style.position="absolute";
+                img.style.left=((j-1)*200)+"px";
+                img.style.top=((i-1)*200)+"px"
+                box.appendChild(img);
+            }
+            
+        }
+        function setTarget(){
+            box.style.left=x+"px";
+            box.style.top=y+"px";
+            printPos();
+        }
+        // 문서 전체를 대상으로 키보드 이벤트 구현
+        document.body.addEventListener("keydown",function(){
+            // 모든 키보드에 반응하면 안되고, 오직 방향키에만 반응하도록 조건문 부여
+            var key=event.keyCode; //키보드에 대한 이벤트 정보 객체로부터 아스키코드 반환받음
+            switch(key){
+                case 37 : x=x+200;break;  
+                case 38 : y=y+200;break;
+                case 39 : x=x-200;break;
+                case 40 : y=y-200;break;
+            }
+            // box div의 좌표를 설정해서 움직이도록 한다.
+            //setTarget();
+            targetX=x;
+            targetY=y;
+        });
+    
+    }
+    function move(){
+        box.style.left=parseFloat(box.style.left)+a*(targetX-parseFloat(box.style.left))+"px";
+        box.style.top=parseFloat(box.style.top)+a*(targetY-parseFloat(box.style.top))+"px";
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="mask">
+            <div id="box"></div>
+        </div>
+    </div>
+</body>
+</html>
