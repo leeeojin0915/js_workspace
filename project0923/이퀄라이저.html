@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 700px;
+        height: 600px;
+        border:2px solid lightskyblue;
+        margin: auto;
+        position: relative;
+    }
+</style>
+<script>
+    var bar;
+    var arrBar=new Array(7);
+    var wrapper;
+    let a=0.1;
+    var targetH=20; //바의 목표높이
+    //막대생성
+    function createBar(){
+        for(var i=0;i<arrBar.length;i++){
+            bar=document.createElement("div");
+            arrBar[i]=bar;
+            bar.style.position="absolute";
+            bar.style.left=(i*65)+"px";
+            bar.style.top=0+"px";
+            bar.style.width=65+"px";
+            bar.style.height=20+"px";
+            bar.style.borderRadius=4+"px";
+            //bar.style.background="pink";
+            
+            wrapper.appendChild(bar);
+            
+        }
+            //막대에 마우스 오버 이벤트 구현하기
+            bar.addEventListener("mouseover",function(){
+                targetH=500;
+            });
+            bar.addEventListener("mouseout",function(){
+                targetH=20;
+            });
+        barColor();
+
+    }
+    function barColor(){
+        arrBar[0].style.background="lightpink";
+        arrBar[1].style.background="lightblue";
+        arrBar[2].style.background="yellowgreen";
+        arrBar[3].style.background="lightyellow";
+        arrBar[4].style.background="lightsalmon";
+        arrBar[5].style.background="dodgerblue";
+        arrBar[6].style.background="violet";
+    }
+    //막대크기 변경함수
+    function move(){
+        for(var i=0;i<arrBar.length;i++){
+            arrBar[i]=bar;
+            bar.style.height=parseFloat(bar.style.height)+a*(targetH-parseFloat(bar.style.height))+"px";
+            bar.innerText=parseFloat(bar.style.height);
+        }
+    }
+    function init(){
+        wrapper=document.getElementById("wrapper");
+        createBar();
+        setInterval("move()",10);
+    }
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
