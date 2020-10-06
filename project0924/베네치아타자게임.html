@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+.wrapper{
+    width: 1200px;
+    height: 700px;
+    margin: auto;
+    background: lightcoral;
+    overflow: hidden;
+}
+.dash{
+    width: 200px;
+    height: 100%;
+    background: rgb(233, 164, 164);
+    float: left;
+    text-align: center;
+}
+.dash button,select,input{
+    width: 90%;
+    height: 40px;
+    margin-bottom: 4px;
+    font-size: 24px;
+}
+#hpBox{
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    padding: 3px;
+    box-sizing: border-box;
+    margin-top: 50px;
+}
+#scoreBox{
+    width: 100%;
+    height: 100px;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+#stage{
+    width: 1000px;
+    height: 100%;
+    background: rgb(172, 158, 231);
+    float: left;
+    position: relative;
+}
+#stage span{
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+</style>
+<script src="../js/lib.js"></script>
+<script>
+// 타자게임에 등장할 모든 단어 데이터베이스 2차원 배열인 이유는 ? stage가 여러판이기 때문에..
+var stage;
+var sel;//level을 선책할 select box
+var hpBox;//hp를 동적으로 추가하게 될 div
+var scoreBox;//점수를 출력할 div
+var score=0;//점수
+var spanArray=[]; //new Array() 단어 10개의 span을 모아놓을 배열
+var stepY=5;//몇 걸음씩 낼올지를 결정하는 변수
+var flag=false; //단어가 움직일지 여부를 결정짓는 논리 값 변수
+                    //start 버튼 등으로 이 변수를 제어하면 된다
+var level=0; //게이머의 현재 레벨을 표현하는 변수, 우리게임은 5레벨 0~4
+var word=[
+    ["컵","냉장고","빨간색","구름","달","냄비","책상","핸드폰","의자","사과"],
+    ["헤드셋","데스크탑","검정색","노트북","엄마","나비","강아지","프린트","휴지통","포토"],
+    ["숫가락","청소기","자바스크립트","방탄소년단","갯벌","앵무새","파인애플","폴라로이드","애플스토어","캐나다"],
+    ["대한민국","이순신","하이라이트","감자","코로나","아파트","수박","악어","발가락","아이스크림"],
+    ["민트초코","무지개","나이아가라폭포","퀘백","네이비","머리끈","제이쿼리","우정","플라스틱","바나나"]
+];
+function createWord(){
+    // 해당 stage에 등장할 단어만큼 생성
+    for(var i=0;i<word[level].length;i++){
+        var span=document.createElement("span"); //inline 이므로 너비,높이 가질 수 없고 내부의 컨텐츠만큼만 감싼다. wrapping
+
+        span.innerHTML=word[level][i];
+        span.style.position="absolute";
+        span.style.left=(i*95)+"px";
+        span.style.top=getRandomBetween(-200,0)+"px";
+        stage.appendChild(span);
+        spanArray.push(span); //span을 배열에 보관 왜? 추후 움직이기 위해
+    }
+}
+function move(){
+    if(flag){
+        // 모든 단어를 대상으로 내려와야 함
+        for(var i=0;i<spanArray.length;i++){
+            // 한걸음씩 이동
+            spanArray[i].style.top=parseInt(spanArray[i].style.top)+stepY+"px";
+
+            //바닥에 닿았는지 판단
+            if(parseInt(spanArray[i].style.top) >=700){
+                //hpArray로부터 요소 하나를 제거
+                //span이 닿았을때, 배열에서 제거하지 않으면 끝없이 if문에 해당되므로
+                // 끝없이 닿게 처리가 되버린다 해결책)실제로 물리적으로 제거해버리되
+                // 배열에서도 삭제해야 남은 span을 대상으로 로직이 실행될것이다.
+                console.log(word[level][i]+"번째 요소인 저 닿았어요");
+                // 배열에서 제거
+                spanArray.splice(i,1);
+            }
+        }
+    }
+}
+function startGame(){
+    flag=true;
+    keyword.focus();//입력박스에 커서 올려놓기
+}
+
+// 레벨을 선택할 옵션을 동적으로 생성
+function createLevelOption(){
+    for(var i=0;i<word.length;i++){
+        var op=document.createElement("option");//<option>
+        op.text="레벨"+(i+1); //<option>레벨1</option>
+        op.value=i; //<option value="1">
+        //select박스에 추가
+        sel.add(op);//select박스에 자식으로 추가
+    }
+}
+function createHp(){
+    for(var i=0;i<9;i++){
+        var hp=document.createElement("div");
+        hp.style.width=60+"px";
+        hp.style.height=60+"px";
+        hp.style.background="red";
+        hp.style.float="left";
+        hp.style.borderRadius="10px";
+        hp.style.border="2px solid skyblue";
+        hpBox.appendChild(hp);//hpBox에부착
+    }
+}
+//점수를 출력하는 함수
+function printScore(){
+    scoreBox.innerHTML=score+"점";
+}
+function init(){
+    stage=document.getElementById("stage");
+    sel=document.getElementById("sel");
+    hpBox=document.getElementById("hpBox");
+    scoreBox=document.getElementById("scoreBox");
+    keyword=document.getElementById("keyword");
+
+    // 입력박스에 이벤트구현
+    //addEventListener()이용하면 두번째의 익명함수의 매개변수로 event 객체가 전달된다
+    keyword.addEventListener("keyup",function(e){
+        if(e.keyCode==13){
+            //입력텍스트와 배열안의 텍스트들을 모두~비교하자
+            for(var i=0;i<word[level].length;i++){
+                if(keyword.value==word[level][i]){
+                    //alert("일치하는 단어찾으"+i);
+                    // spanArray[i].style.color="red";
+                    // span엘리먼트 자체를 제거해보자
+                    stage.removeChild(spanArray[i]);//부모로부터 삭제,createElement의 반대
+                    score+=10; //10점추가
+                    printScore(); //화면출력
+                }else{
+
+                }           
+            }
+            //다시 입력박스초기화
+            keyword.value="";
+        }
+    });
+
+}
+window.addEventListener("load",function(){
+    init(); //초기화
+    createWord(); //단어 화면에 출력
+    createLevelOption();
+    createHp();
+    printScore();
+    setInterval("move()",100);
+});
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="dash">
+            <button onclick="startGame()">START</button>
+            <select id="sel">
+            </select>
+            <input id="keyword" type="text" placeholder="단어입력">
+            <div id="hpBox"></div>
+            <div id="scoreBox">0점</div>
+            <div id="itemBox">아이템이미지</div>
+        </div>
+        <div id="stage"></div>
+    </div>
+</body>
+</html>

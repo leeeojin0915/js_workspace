@@ -1,0 +1,34 @@
+<script>
+    /*방법1) new연산자로 선언 후 각 요소를 index 명시하여 구성*/
+    // var box = new Array();
+    var box=[
+        ["호랑이","사자","말"], //0 box[0]
+        ["장미","튤립","백합"], //1 box[1]
+        ["java","oracle","spring"] //2 box[2]
+    ];
+
+    var animal=["호랑이","사자","말"];
+    var flower=["장미","튤립","백합"];
+    var it=["java","oracle","spring"];
+
+    // box.push(animal);
+    // box.push(flower);
+    // box.push(it);
+    
+    // for(var i=0;i<box.length;i++){
+    //     for(var j=0;j<box[i].length;j++){
+    //         document.write(box[i][j]);
+    //     }
+    //     document.write("<br>")
+    // }
+
+    document.write("<table border='1px' width='300px'>")
+    for(var i=0;i<box.length;i++){ //층 tr
+        document.write("<tr>")
+        for(var j=0;j<box[i].length;j++){
+            document.write("<td>"+box[i][j]+"</td>");
+        }
+        document.write("</tr>");
+    }
+    document.write("</table>");
+</script>

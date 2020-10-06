@@ -1,0 +1,16 @@
+<script>
+    var fruit=["apple","banana","grape","orange"];
+    var car=["bmw","audi","benz","kia"]
+
+    var box=[]; //1차원?2차원?
+
+    box.push(fruit); //기존의 1차원 이었던 box에 또 다른 배열 추가
+    box.push(car);
+
+    for(var j=0;j<box.length;j++){
+        for(var i=0;i<box[j].length;i++){
+            document.write(box[j][i]+" ");
+        }
+    }
+
+</script>

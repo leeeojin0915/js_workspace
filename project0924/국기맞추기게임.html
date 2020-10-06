@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 500px;
+        height: 900px;
+        border: 5px solid lightblue;
+        box-sizing: border-box;
+        background: lightcyan;
+        margin: auto;
+    }
+    #nation{
+        width: 100%;
+        height: 300px;
+        background: lightpink;
+        position: relative;
+    }
+    #hint{
+        width: 100%;
+        height: 100px;
+        background: lightyellow;
+    }
+   #txt{
+        width: 100%;
+        height: 100px;
+        box-sizing: border-box;
+    }
+    input input[text]{
+        font-size: 450px;
+    }
+    #record{
+        width: 100%;
+        height: 200px;
+        background:dodgerblue;
+    }
+    #correct{
+        width: 100%;
+        height: 200px;
+        background: orange;
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    var nation;
+    var hint;
+    var txt;
+    var correct;
+    var record;
+    var score=0;
+    
+    function createNation(){
+        printScore();
+        txt.addEventListener("keyup",function(){
+            if(event.keyCode==13){
+                printImage();
+            }
+        });
+    }
+    function printImage(){
+        for(var i=0;i<data.length;i++){
+            nation.appendChild(data[i].length);
+        }
+    }
+    function printScore(){
+        //record.innerText=score+"점";
+    }
+    function init(){
+        document.getElementById("nation");
+        document.getElementById("hint");
+        document.getElementById("txt");
+        document.getElementById("correct");
+        document.getElementById("record");
+
+        createNation();
+    }
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="nation"></div>
+        <div id="hint">힌트</div>
+        <input id="txt" type="text" placeholder="정답입력">
+        <div id="correct"></div>
+        <div id="record"></div>
+    </div>
+</body>
+</html>

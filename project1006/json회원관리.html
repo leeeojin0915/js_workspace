@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 700px;
+        height: 600px;
+        border: 2px solid cornflowerblue;
+        margin: auto;
+        position: relative;
+    }
+    .regist-area{
+        width: 200px;
+        height: 100%;
+        background:peachpuff;
+        position: absolute;
+        left: 0px;
+    }
+    #result-area{
+        width: 500px;
+        height: 100%;
+        background:powderblue;
+        position: absolute;
+        left: 200px;
+    }
+    input[type='text']{
+        padding: 6px;
+        margin: 5px 5px;
+        border: 2px solid salmon;
+        border-radius: 3px;
+    }
+    button{
+        background : salmon;
+        color:white;
+        margin: 0px 5px 0px 5px;
+        width: 80px;
+        padding: 6px;
+        border: none;
+    }
+</style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="regist-area">
+            <!-- 버튼에 의한 무조건적인 전송 방지
+            방지안하면, 새로고침 때문에 페이지가 갱신된다. -->
+            <form onsubmit="event.preventDefault()">
+                <input type="text" name="id" placeholder="ID입력..">
+                <input type="text" name="pass" placeholder="Password입력..">
+                <input type="text" name="name" placeholder="Name입력..">
+
+                <button onclick="regist()">등록</button>
+                <button onclick="remove()">지우기</button>
+            </form>
+        </div>
+        <div id="result-area">결과 영역</div>
+    </div>
+</body>
+</html>

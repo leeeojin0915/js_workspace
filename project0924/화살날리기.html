@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{
+        position:relative;
+    }
+</style>
+<script>
+    var wrapper;
+    var arrow;
+    var x=100;
+  
+    var arrowArray=new Array(5);
+    var colorArray=["red","orange","yellow","green","blue"];
+
+    function move(){
+        for(var i=0;i<arrowArray.length;i++){
+            x+=5;
+            arrow.style.left=x+"px";
+        }
+    }
+    function createArrow(){
+        for(var i=0;i<arrowArray.length;i++){
+            arrow=document.createElement("div");
+            arrow.innerText="→";
+            arrow.style.fontSize=50+"px";
+            arrow.style.width=50+"px";
+            arrow.style.height=50+"px";
+            arrow.style.color=colorArray[i];
+            arrow.style.position="absolute";
+            arrow.style.left=x+"px";
+            arrow.style.top=(i*100)+"px";
+
+            document.body.appendChild(arrow);
+        }
+    }
+    function init(){
+        wrapper=document.getElementById("wrapper");
+    }
+    window.addEventListener("load",function(){
+        init();
+        createArrow();
+        setInterval("move()",50);
+    });
+</script>
+</head>
+<body>
+    <!-- 문서가 로드되면 다음 조건만족 시키기 
+    1) 화살이 날라가야 함
+    2) 각각의 화살이 서로 다른 색상
+    3) 각각의 화살이 서로 다른 속도
+    -->
+    <div class="wrapper"></div>
+</body>
+</html>

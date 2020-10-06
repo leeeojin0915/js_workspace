@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+body{
+    margin:0px;
+}
+#wrapper{
+    width: 100%;
+    height: 700px;
+    background-image: url(../../images/shooting/bg.png);
+    overflow: hidden;
+    position: relative;
+}
+</style>
+<script src="./Hero.js"></script>
+<script src="./Bullet.js"></script>
+<script src="./Enemy.js"></script>
+<script src="../js/lib.js"></script>
+<script>
+var wrapper;
+var bgAudio;
+var hero;
+//var enemy;
+//var bullet; //총알(변수가 하나이기 때문에 한 개의 총알만 담을 수 있음)
+var bulletArray=new Array(); //내장 객체중 Array()객체는 배열을 제어할 수 있다.
+var bombArray=new Array(); //폭탄 담을 배열
+var enemyArray=new Array(); //적을 담을 배열
+var enemyImg=["e1.png","e2.png","e3.png","e4.png","e5.png"]; //규칙성이 없을 수 있으니 배열에 넣어놓기
+var bgY=0; //배경의 y축을 결정할 변수
+/*배경처리*/
+function bgEffect(){
+    //y축의 음수방향으로 배경을 움직이자
+    bgY++;
+    wrapper.style.backgroundPosition="0px "+bgY+"px";
+}
+/*사운드 효과*/
+function bgSound(){
+    //audio태그 생성
+    bgAudio=document.createElement("audio"); //<audio>
+    bgAudio.src="../../sound/shooting/bgm.mp3";
+    bgAudio.loop="yes";//끝없이 루프로 실행
+    bgAudio.play();
+}
+
+/*주인공등장*/
+function createHero(){
+    //screen.width
+    hero=new Hero((screen.width/2)-40,550,80,65,0,0);
+}
+/*적생성*/
+function createEnemy(){
+    //src,x,y,width,height,velX,velY
+    for(var j=0;j<2;j++){ //층
+        for(var i=0;i<20;i++){ //호
+            var enemy=new Enemy("../../images/shooting/"+enemyImg[j],100+(80*i),20+(70*j),75,65,0,0.1);
+            enemyArray.push(enemy);
+        }
+    }
+}
+/*총알생성*/
+function createBullet(){
+    //src,(hero의 위치와 같으니까 hero.x,hero.y),width,height,velX=움직이지 X,velY=위로 날라가니까 -10
+    var bullet=new Bullet("../../images/shooting/ball.png",hero.x+(hero.width/2)-(25/2),hero.y,25,25,0,-10);
+
+    //무기 사운드 처리
+    var audio=document.createElement("audio");
+    audio.src="../../sound/shooting/fire.wav";
+    audio.play();//사운드재생
+    
+    //지금 생성된 총알을 배열에 추가하자
+    bulletArray.push(bullet);
+}
+/*폭탄생성*/
+function createBomb(){
+    //src,x,y,width,height,velX,velY
+    var bomb=new Bullet("../../images/shooting/missile.png",hero.x+(hero.width/2)-(80/2),hero.y,80,120,0,-4);
+
+    //폭탄 사운드처리
+    var audio=document.createElement("audio");
+    audio.src="../../sound/shooting/bomb.wav";
+    audio.play();//사운드재생
+
+    bombArray.push(bomb);
+}
+/*게임에서는 무조건 게임루프가 존재해야, 사물을 움직일 수 있다.*/
+function gameLoop(){
+    console.log("gameLoop() called..");
+    hero.tick();
+    hero.render();
+
+    //총알을 아직 생성된 적이 없기 때문에 bullet변수에는 undefined 값이 들어있다.
+    //따라서 존재하지 않는 객체의 메서드를 호출하게되면 에러가 발생한다.
+    // if(bullet!=undefined){ //태어났을때만
+    //     bullet.tick();
+    //     bullet.render();
+    // }
+
+    //배열에 담겨진 모든 총알에 대해서 tick(),render()호출
+    for(var i=0;i<bulletArray.length;i++){
+        bulletArray[i].tick();
+        bulletArray[i].render();
+    }
+    for(var i=0;i<bombArray.length;i++){
+        bombArray[i].tick();
+        bombArray[i].render();
+    }
+    for(var i=0;i<enemyArray.length;i++){
+        enemyArray[i].tick();
+        enemyArray[i].render();
+    }
+    bgEffect();
+}
+window.addEventListener("load",function(){
+    wrapper=document.getElementById("wrapper");
+    // 게임화면인 div에 키보드 이벤트 구현
+    document.body.addEventListener("keydown",function(e){
+        var key=e.keyCode;
+        switch(key){
+            case 37:hero.velX=-5;break; //velX=-5 velY=0
+            case 39:hero.velX=5;break;
+            case 38:hero.velY=-5;break;
+            case 40:hero.velY=5;break;
+            case 32:createBullet();break; //총알발사
+            case 66:createBomb();break; //폭탄발사
+        }
+    });
+    document.body.addEventListener("keyup",function(e){
+        var key=e.keyCode;
+        switch(key){
+            case 37:hero.velX=0;break; //velX=-5 velY=0
+            case 39:hero.velX=0;break;
+            case 38:hero.velY=0;break;
+            case 40:hero.velY=0;break;
+        }
+    });
+    bgSound();
+    createHero();
+    createEnemy();
+    //createBullet(); 여기에 놓으면 총알이 시작되자마자 나온다
+    setInterval("gameLoop()",1);
+});
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
