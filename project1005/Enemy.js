@@ -2,7 +2,7 @@
 class Enemy{
     //적군의 이미지가 여러형태 이므로, 매개변수로 받을 것..
     constructor(src,x,y,width,height,velX,velY){
-        this.img;
+        this.img=document.createElement("img");
         this.src=src;
         this.x=x;
         this.y=y;
@@ -11,7 +11,6 @@ class Enemy{
         this.velX=velX;
         this.velY=velY;
 
-        this.img=document.createElement("img");
         this.img.src=this.src;
         this.img.style.position="absolute";
         this.img.style.left=this.x+"px";
