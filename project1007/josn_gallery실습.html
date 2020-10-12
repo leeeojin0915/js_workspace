@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+.wrapper{
+    width: 1000px;
+    height: 800px;
+    margin: auto;
+}
+#head{
+    width: 100%;
+    height: 100px;
+    font-size: 55px;
+    font-weight: bold;
+    text-align: center;
+    background: lightskyblue;
+}
+.content{
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+
+}
+#photo{
+    width: 50%;
+    height: 100%;
+    float: left;
+    background: lightpink;
+}
+#desc{
+    width: 50%;
+    height: 100%;
+    float: left;
+    font-size: 25px;
+    background: lightgrey;
+}
+#desc li{
+    margin-bottom:  15px;
+}
+#thumb{
+    width: 100%;
+    height: 100px;
+    position: relative;
+    overflow: scroll;
+}
+</style>
+<script src="./Thumbnail2.js"></script>
+<script src="./data.json"></script>
+<script>
+var head,photo,desc,thumb;
+var photoArray=new Array();
+
+function createContent(index){
+    var json=movie.marvel[index];
+    photo.innerHTML="<img src=\""+json.url+"\" width=\"100%\" height=\"100%\">";
+    head.innerHTML=json.title;
+
+    var memo="<ul>";
+        memo+="<li>장르:"+json.category_name+"</li>";
+        memo+="<li>개봉일:"+json.release_date+"</li>";
+        memo+="<li>예산:"+json.budget+"</li>";
+        memo+="<li>수입:"+json.gross+"</li>";
+        memo+="<li>상영시간:"+json.running_time+"</li>";
+        memo+="</ul>";
+    desc.innerHTML=memo;
+}
+function createThumb(){
+    for(var i=0;i<movie.marvel.length;i++){
+        var json=movie.marvel[i];
+        var obj=new Thumbnail2(thumb,100,85,4,i*100,json.url);
+        photoArray.push(obj);
+    }
+}
+function init(){
+    head=document.getElementById("head");
+    photo=document.getElementById("photo");
+    desc=document.getElementById("desc");
+    thumb=document.getElementById("thumb");
+}
+window.addEventListener("load",function(){
+    init();
+    createThumb();
+});
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="head"></div>
+        <div class="content">
+            <div id="photo"></div>
+            <div id="desc"></div>
+        </div>
+        <div id="thumb"></div>
+    </div>
+</body>
+</html>

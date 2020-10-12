@@ -41,6 +41,7 @@ var head,content,info;
 var days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 var startDay=0; //각 월의 시작 요일(매월 마다 1일이 무슨 요일인지)
 var endDay=0;  //각 월의 끝 요일
+var sub;
 var currentYear=0;//현재 사용자가 보고이있는 연도
 var currentMonth=0;//현재 사용자가 보고 있는 월
 //요일출력
@@ -62,9 +63,9 @@ function createCell(){
             }else{
                 txt="";
             }
-            if(n>endDay){
-                    txt="";
-                }
+            if(num>sub){
+                txt="";
+            }
             new Cell(content,100,100,txt);
             n++;
         }
@@ -84,9 +85,8 @@ function getCurrentDate(){
                         //반복문의 시작을 어느 요일부터 할 지 알아야 함
     //alert((d.getMonth()+1)+"월의 시작 요일은"+d.getDay());
     startDay=d.getDay();
+    sub=getLastDate(currentYear,currentMonth);
 
-    d.setDate(31);
-    endDay=d.getDate();
 }
 //원하는 날짜를 조작할 수 있는 함수
 function getCustomDate(){
@@ -111,6 +111,8 @@ function prev(){
 
     d.setDate(1); //1일로 조작
     startDay=d.getDay();
+    sub=getLastDate(currentYear,currentMonth-1);
+
     
     content.innerText="";//모두 비우고
     createDay();
@@ -132,6 +134,8 @@ function next(){
 
     d.setDate(1); //1일로 조작
     startDay=d.getDay();
+    sub=getLastDate(currentYear,currentMonth+1);
+
 
     content.innerText="";//모두 비우고
     createDay();
@@ -145,7 +149,6 @@ function init(){
 window.addEventListener("load",function(){
     init();
     getCurrentDate();//현재 날짜 구하기
-
     createDay();//요일생성
     content.innerText="";//모두 비우고
     createDay();
